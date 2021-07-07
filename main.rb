@@ -1,28 +1,26 @@
 require 'pry'
 module Hangman
   class Game
-    attr_accessor :word, :hidden_word
+    attr_accessor :word, :right_guesses, :wrong_guesses
 
     def initialize
       @word = choose_word
+      p @word.length
+      p @word
+      @right_guesses = Array.new(@word.length, "_")
+      p @right_guesses
     end
 
     def choose_word
-      words = []
-      File.open("5desk.txt", "r") do |file|
-        file.each_line do |line|
-          words << line.delete("\n").delete("\r")
-        end
-      end
-      words.select {|word| word.length.between?(5, 12)}.sample.strip
+      File.readlines("5desk.txt").sample.strip()
     end
-    def hide_word
-      @hidden_word = "*" * @word.size 
-    end
+
+    
+  end
+
+  class Player
   end
 end
 
 include Hangman
 bruh = Game.new 
-puts big = bruh.choose_word
-puts chungus = bruh.hide_word
