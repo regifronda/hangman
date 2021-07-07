@@ -9,6 +9,8 @@ module Hangman
       p @word
       @right_guesses = Array.new(@word.length, "_")
       p @right_guesses
+      @wrong_guesses = Array.new
+      p @wrong_guesses
     end
 
     def choose_word
