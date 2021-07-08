@@ -12,10 +12,19 @@ module Hangman
       p @wrong_guesses
       p @wrong_guesses.length
 
-      
+      @player = Player.new
+      game_loop
     end
 
     # game loop method
+
+    def game_loop
+      
+    test = @player.get_guess
+
+    binding.pry
+    
+    end
 
     def check_lose
       if @wrong_guesses.length == 6
