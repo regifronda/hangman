@@ -9,9 +9,6 @@ module Hangman
       @word = choose_word
       @right_guesses = Array.new(@word.length, "_")
       @wrong_guesses = Array.new
-
-      p @right_guesses
-      p @wrong_guesses
       
       @player = Player.new
 
@@ -21,8 +18,7 @@ module Hangman
 
     def game_loop
       loop do
-        p @word
-        p @wrong_guesses
+        
         guess = @player.ask_for_guess
       
         if check_save(guess)
@@ -31,9 +27,8 @@ module Hangman
 
         add_letter(guess, @word)
 
-        p @word
-        p @right_guesses
-        p @wrong_guesses
+        puts "Secret word: #{@right_guesses.join(' _')}"
+        puts "Guesses made: #{@wrong_guesses.join(', ')}"
         break if check_game_over
       end
     end
@@ -86,7 +81,7 @@ module Hangman
 
     def check_lose
       if @wrong_guesses.length == 6
-        puts "Reached 6 guesses! You lose!"
+        puts "Reached 6 guesses! You lose! Correct word was: #{@word}"
         true
       else
         false
@@ -117,7 +112,7 @@ module Hangman
 
   class Player
     def ask_for_guess
-      puts "Enter a letter."
+      puts "Enter a letter. You can enter 'save' to save your game at any time."
       guess = gets.chomp.downcase
 
       if guess.length == 1
