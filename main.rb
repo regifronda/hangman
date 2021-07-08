@@ -23,7 +23,9 @@ module Hangman
         p @word
         guess = @player.ask_for_guess
       
-        check_save(guess)
+        if check_save(guess)
+          next
+        end
 
         add_letter(guess, @word)
 
@@ -38,6 +40,7 @@ module Hangman
       if guess == "save"
         puts "You chose to save your game"
         save_game
+        true
       end
     end
 
