@@ -1,4 +1,5 @@
 require 'pry'
+require 'json'
 module Hangman
   class Game
     attr_accessor :word, :right_guesses, :wrong_guesses
@@ -11,13 +12,10 @@ module Hangman
       p @right_guesses
       p @wrong_guesses
       
-
       @player = Player.new
 
       game_loop
     end
-
-    # game loop method
 
     def game_loop
       loop do
@@ -25,12 +23,20 @@ module Hangman
         guess = @player.ask_for_guess
         p guess
       
+        check_save(guess)
         add_letter(guess, @word)
 
         p @word
         p @right_guesses
         p @wrong_guesses
         break if check_game_over
+      end
+    end
+
+    def check_save(guess)
+      if guess == "save"
+        puts "You chose to save your game"
+        true
       end
     end
 
@@ -84,6 +90,8 @@ module Hangman
       guess = gets.chomp.downcase
 
       if guess.length == 1
+        guess
+      elsif guess == "save"
         guess
       else
         puts "Please enter only one letter."
