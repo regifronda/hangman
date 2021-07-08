@@ -21,9 +21,11 @@ module Hangman
 
     def game_loop
       
-    test = @player.ask_for_guess
-
-    p test
+    guess = @player.ask_for_guess
+    p guess
+    guess_array = Array.new
+    guess_array << guess
+    p guess_array
     end
 
     def check_lose
@@ -47,23 +49,6 @@ module Hangman
   end
 
   class Player
-    attr_accessor :guess
-    def initialize
-      @guess = guess
-    end
-
-    def get_guess
-      loop do
-        guess = ask_for_guess
-
-
-        if validate_guess(guess)
-          break
-        end
-        guess
-      end
-    end
-
     def ask_for_guess
       puts "Enter a letter."
       guess = gets.chomp.downcase
