@@ -5,12 +5,12 @@ module Hangman
 
     def initialize
       @word = choose_word
-      p @word
       @right_guesses = Array.new(@word.length, "_")
-      p @right_guesses
       @wrong_guesses = Array.new
+
+      p @right_guesses
       p @wrong_guesses
-      p @wrong_guesses.length
+      
 
       @player = Player.new
 
@@ -20,12 +20,21 @@ module Hangman
     # game loop method
 
     def game_loop
+      p @word
+      guess = @player.ask_for_guess
+      p guess
       
-    guess = @player.ask_for_guess
-    p guess
-    guess_array = Array.new
-    guess_array << guess
-    p guess_array
+      #guess_array = Array.new
+      #guess_array << guess
+      #p guess_array
+      
+      @word.each_char.with_index do |letter, index|
+        @right_guesses[index] = letter if guess.include?(letter.downcase)
+      end
+
+      p @word
+      p @right_guesses
+
     end
 
     def check_lose
