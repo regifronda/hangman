@@ -22,9 +22,9 @@ module Hangman
       loop do
         p @word
         guess = @player.ask_for_guess
-        p guess
       
         check_save(guess)
+
         add_letter(guess, @word)
 
         p @word
@@ -90,7 +90,7 @@ module Hangman
           words << line.delete("\n").delete("\r")
         end
       end
-      words.select {|word| word.length.between?(5, 12)}.sample
+      words.select {|word| word.length.between?(5, 12)}.sample.downcase
     end
   end
 
