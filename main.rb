@@ -15,12 +15,14 @@ module Hangman
       
       @player = Player.new
 
+      ask_to_load_game
       game_loop
     end
 
     def game_loop
       loop do
         p @word
+        p @wrong_guesses
         guess = @player.ask_for_guess
       
         if check_save(guess)
@@ -34,6 +36,22 @@ module Hangman
         p @wrong_guesses
         break if check_game_over
       end
+    end
+
+    def ask_to_load_game
+      puts "Enter 'y' if you would like to load your game. Otherwise, enter any key."
+      input = gets.chomp
+      if input.downcase == 'y'
+        load_game
+      end
+    end
+
+    def load_game
+      save_file = File.read("saved_game.json")
+      json_hash = JSON.parse(save_file)
+      @word = json_hash["word"]
+      @right_guesses = json_hash["right_guesses"]
+      @wrong_guesses = json_hash["wrong_guesses"]
     end
 
     def check_save(guess)
