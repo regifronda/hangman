@@ -1,5 +1,6 @@
 require 'pry'
 require 'json'
+
 module Hangman
   class Game
     attr_accessor :word, :right_guesses, :wrong_guesses
@@ -36,8 +37,17 @@ module Hangman
     def check_save(guess)
       if guess == "save"
         puts "You chose to save your game"
-        true
+        save_game
       end
+    end
+
+    def save_game
+      json_object = {
+        :word => @word,
+        :right_guesses => @right_guesses,
+        :wrong_guesses => @wrong_guesses
+      }.to_json
+      File.open("saved_game.json", "w") { |file| file.write(json_object) }
     end
 
     def check_game_over
