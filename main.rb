@@ -20,21 +20,28 @@ module Hangman
     # game loop method
 
     def game_loop
-      p @word
-      guess = @player.ask_for_guess
-      p guess
+      loop do
+        p @word
+        guess = @player.ask_for_guess
+        p guess
       
-      #guess_array = Array.new
-      #guess_array << guess
-      #p guess_array
-      
-      @word.each_char.with_index do |letter, index|
-        @right_guesses[index] = letter if guess.include?(letter.downcase)
+        add_letter(guess, @word)
+
+        p @word
+        p @right_guesses
+        p @wrong_guesses
       end
+    end
 
-      p @word
-      p @right_guesses
-
+    def add_letter(guess, secret_word)
+      if secret_word.include?(guess)
+        @word.each_char.with_index do |letter, index|
+          @right_guesses[index] = letter if guess.include?(letter.downcase)
+        end
+      else
+        @wrong_guesses << guess
+        puts "Incorrect!"
+      end
     end
 
     def check_lose
