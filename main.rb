@@ -11,7 +11,11 @@ module Hangman
       @wrong_guesses = Array.new
       p @wrong_guesses
       p @wrong_guesses.length
+
+      
     end
+
+    # game loop method
 
     def check_lose
       if @wrong_guesses.length == 6
@@ -21,6 +25,7 @@ module Hangman
         false
       end
     end
+
     def choose_word
       words = Array.new
       File.open("5desk.txt", "r") do |file|
@@ -33,6 +38,19 @@ module Hangman
   end
 
   class Player
+    attr_accessor :guess
+    def initialize
+      @guess = guess
+    end
+
+    def get_guess
+      guess = ask_for_guess
+    end
+
+    def ask_for_guess
+      puts "Enter a letter"
+      gets.chomp.downcase
+    end
   end
 end
 
