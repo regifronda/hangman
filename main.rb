@@ -13,6 +13,7 @@ module Hangman
       p @wrong_guesses.length
 
       @player = Player.new
+
       game_loop
     end
 
@@ -53,12 +54,26 @@ module Hangman
     end
 
     def get_guess
-      guess = ask_for_guess
+      loop do
+        guess = ask_for_guess
+
+        if validate_guess(guess)
+          break
+        end
+      end
     end
 
     def ask_for_guess
-      puts "Enter a letter"
+      puts "Enter a letter."
       gets.chomp.downcase
+    end
+
+    def validate_guess(guess)
+      if guess.length == 1
+        true
+      else
+        puts "Please enter only one letter."
+      end
     end
   end
 end
