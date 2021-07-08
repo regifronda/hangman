@@ -30,12 +30,32 @@ module Hangman
         p @word
         p @right_guesses
         p @wrong_guesses
+        break if check_game_over
       end
     end
 
     def check_game_over
       check_win || check_lose
     end
+
+    def check_win
+      if @right_guesses.include?("_")
+        false
+      else
+        puts "You win!"
+        true
+      end
+    end
+
+    def check_lose
+      if @wrong_guesses.length == 6
+        puts "Reached 6 guesses! You lose!"
+        true
+      else
+        false
+      end
+    end
+
     def add_letter(guess, secret_word)
       if secret_word.include?(guess)
         @word.each_char.with_index do |letter, index|
@@ -44,15 +64,6 @@ module Hangman
       else
         @wrong_guesses << guess
         puts "Incorrect!"
-      end
-    end
-
-    def check_lose
-      if @wrong_guesses.length == 6
-        "Reached 6 guesses! You lose!"
-        true
-      else
-        false
       end
     end
 
