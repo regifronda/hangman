@@ -33,6 +33,9 @@ module Hangman
       end
     end
 
+    def check_game_over
+      check_win || check_lose
+    end
     def add_letter(guess, secret_word)
       if secret_word.include?(guess)
         @word.each_char.with_index do |letter, index|
