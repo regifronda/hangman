@@ -21,10 +21,9 @@ module Hangman
 
     def game_loop
       
-    test = @player.get_guess
+    test = @player.ask_for_guess
 
-    binding.pry
-    
+    p test
     end
 
     def check_lose
@@ -57,22 +56,23 @@ module Hangman
       loop do
         guess = ask_for_guess
 
+
         if validate_guess(guess)
           break
         end
+        guess
       end
     end
 
     def ask_for_guess
       puts "Enter a letter."
-      gets.chomp.downcase
-    end
+      guess = gets.chomp.downcase
 
-    def validate_guess(guess)
       if guess.length == 1
-        true
+        guess
       else
         puts "Please enter only one letter."
+        ask_for_guess
       end
     end
   end
